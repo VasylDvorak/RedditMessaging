@@ -23,8 +23,7 @@ class App : Application() {
                     application,
                     mainScreen,
                     apiModule,
-                    appModule,
-
+                    appModule
                 )
             )
         }

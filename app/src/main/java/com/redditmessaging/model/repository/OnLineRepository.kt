@@ -5,12 +5,12 @@ import android.net.ConnectivityManager
 import android.net.Network
 import android.net.NetworkRequest
 import androidx.lifecycle.LiveData
-import org.koin.java.KoinJavaComponent
+import org.koin.java.KoinJavaComponent.getKoin
 
 
 class OnLineRepository : LiveData<Boolean>() {
 
-    private val context: Context = KoinJavaComponent.getKoin().get()
+    private val context: Context = getKoin().get<Context>()
     private val availableNetworks = mutableSetOf<Network>()
     private val connectivityManager =
         context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager

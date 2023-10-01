@@ -9,14 +9,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.viewbinding.ViewBinding
-import com.redditmessaging.R
-import com.redditmessaging.model.datasource.AppState
-import com.redditmessaging.model.repository.OnLineRepository
-import com.redditmessaging.utils.ui.AlertDialogFragment
-import com.redditmessaging.views.AnimatorDictionary
 import com.google.android.material.snackbar.Snackbar
 import com.google.gson.Gson
-import org.koin.android.ext.android.inject
+import com.redditmessaging.R
+import com.redditmessaging.model.datasource.AppState
+import com.redditmessaging.utils.ui.AlertDialogFragment
+import com.redditmessaging.views.AnimatorDictionary
 
 abstract class BaseFragment<T : AppState, B : ViewBinding>(
     private val inflateBinding: (
@@ -32,35 +30,11 @@ abstract class BaseFragment<T : AppState, B : ViewBinding>(
 
     private var snack: Snackbar? = null
     protected var isNetworkAvailable: Boolean = false
-    private val checkConnection: OnLineRepository by inject()
 
     protected val checkSDKversion = Build.VERSION.SDK_INT >= Build.VERSION_CODES.S
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true)
-        subscribeToNetworkChange()
-
-    }
-
-    private fun subscribeToNetworkChange() {
-
-        checkConnection.observe(
-            this@BaseFragment
-        ) {
-            isNetworkAvailable = it
-            if (!isNetworkAvailable) {
-                snack = Snackbar.make(
-                    requireView(),
-                    R.string.dialog_message_device_is_offline,
-                    Snackbar.LENGTH_INDEFINITE
-                )
-                snack?.show()
-            } else {
-                snack?.dismiss()
-                snack = null
-            }
-        }
-        checkConnection.currentStatus()
 
     }
 

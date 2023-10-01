@@ -47,6 +47,7 @@ class MainFragment : BaseFragment<AppState, FragmentMainBinding>(FragmentMainBin
         val footerAdapter = DefaultLoadStateAdapter(tryAgainAction)
 
         // combined adapter which shows both the list of users + footer indicator when loading pages
+
         val adapterWithLoadState = adapter
             .withLoadStateFooter(footer = footerAdapter)
         binding.apply {
