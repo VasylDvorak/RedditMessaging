@@ -1,7 +1,6 @@
 package com.redditmessaging.views.base_for_cinema
 
 
-import android.animation.Animator
 import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -11,16 +10,13 @@ import androidx.fragment.app.Fragment
 import androidx.viewbinding.ViewBinding
 import com.google.android.material.snackbar.Snackbar
 import com.google.gson.Gson
-import com.redditmessaging.R
 import com.redditmessaging.model.datasource.AppState
-import com.redditmessaging.utils.ui.AlertDialogFragment
-import com.redditmessaging.views.AnimatorDictionary
 
 abstract class BaseFragment<T : AppState, B : ViewBinding>(
     private val inflateBinding: (
         inflater: LayoutInflater, root: ViewGroup?, attachToRoot: Boolean
     ) -> B
-) : Fragment(){
+) : Fragment() {
     private var _binding: B? = null
 
     protected val binding: B
@@ -38,24 +34,6 @@ abstract class BaseFragment<T : AppState, B : ViewBinding>(
 
     }
 
-    protected fun showNoInternetConnectionDialog() {
-        showAlertDialog(
-            getString(R.string.dialog_title_device_is_offline),
-            getString(R.string.dialog_message_device_is_offline)
-        )
-    }
-
-    protected fun showAlertDialog(title: String?, message: String?) {
-        activity?.let {
-            AlertDialogFragment.newInstance(title, message)
-                .show(it.supportFragmentManager, DIALOG_FRAGMENT_TAG)
-        }
-    }
-
-    private fun isDialogNull(): Boolean {
-        return activity?.supportFragmentManager?.findFragmentByTag(DIALOG_FRAGMENT_TAG) == null
-    }
-
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -66,16 +44,10 @@ abstract class BaseFragment<T : AppState, B : ViewBinding>(
         return binding.root
     }
 
-    override fun onCreateAnimator(transit: Int, enter: Boolean, nextAnim: Int): Animator? {
-        return AnimatorDictionary().setAnimator(transit, enter)
-    }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
     }
 
-    companion object {
-        const val DIALOG_FRAGMENT_TAG = "dialog_fragment_tag"
-    }
 }

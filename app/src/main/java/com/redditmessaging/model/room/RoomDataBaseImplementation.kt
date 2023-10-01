@@ -10,13 +10,12 @@ import com.redditmessaging.utils.converterMessageEntityToDataX
 class RoomDataBaseImplementation(
     private val messageDao: MessageDao
 ) : RepositoryDataSourceLocal {
-    override suspend fun putFavorite(listData: List<DataX>) {
+    override suspend fun putMessagesList(listData: List<DataX>) {
 
         messageDao.insertAll(converterDataXToMessageEntity(listData))
     }
 
-    override suspend fun getFavoriteList(): List<DataX> {
-        println("@@@@@@@@@@@@@@@"+ messageDao.getAll())
+    override suspend fun getMessagesList(): List<DataX> {
         return converterMessageEntityToDataX(messageDao.getAll())
     }
 

@@ -1,7 +1,7 @@
 package com.redditmessaging.model.repository
 
-import com.redditmessaging.model.request.DataModel
+import com.redditmessaging.model.request.DataX
 
 interface Repository {
-    suspend fun getData(): DataModel
+    suspend fun getData(page: Int): Pair<DataX?, Int?>
 }

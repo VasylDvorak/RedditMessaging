@@ -12,8 +12,4 @@ import com.redditmessaging.model.room.message.MessageEntity
 )
 abstract class MessageDataBase : RoomDatabase() {
     abstract fun messageDao(): MessageDao
-
-companion object {
-    const val DB_NAME = "database.db"
-}
 }

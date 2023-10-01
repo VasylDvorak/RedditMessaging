@@ -10,4 +10,4 @@ data class DataX(
     @field:SerializedName("title") var title: String? = "",
     @field:SerializedName("upvote_ratio") var upvoteRatio: Double? = 0.0,
     @field:SerializedName("num_crossposts") var numCrossposts: Int? = 0,
-): Parcelable
+) : Parcelable

@@ -4,6 +4,7 @@ import android.app.Application
 import com.redditmessaging.di.ConnectKoinModules.apiModule
 import com.redditmessaging.di.ConnectKoinModules.appModule
 import com.redditmessaging.di.ConnectKoinModules.application
+import com.redditmessaging.di.ConnectKoinModules.mainFragmentModule
 import com.redditmessaging.di.ConnectKoinModules.mainScreen
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
@@ -23,7 +24,8 @@ class App : Application() {
                     application,
                     mainScreen,
                     apiModule,
-                    appModule
+                    appModule,
+                    mainFragmentModule
                 )
             )
         }

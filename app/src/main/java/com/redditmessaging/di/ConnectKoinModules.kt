@@ -7,7 +7,7 @@ import com.redditmessaging.di.koin_modules.ApiModule
 import com.redditmessaging.di.koin_modules.AppModule
 import com.redditmessaging.di.koin_modules.MainFragmentModule
 import com.redditmessaging.model.datasource.RetrofitImplementation
-import com.redditmessaging.model.loaders.repositories.FilmsRetrofitRepository
+import com.redditmessaging.model.loaders.repositories.MessagessRetrofitRepository
 import com.redditmessaging.model.repository.Repository
 import com.redditmessaging.model.repository.RepositoryImplementation
 import com.redditmessaging.model.repository.RepositoryImplementationLocal
@@ -38,15 +38,14 @@ object ConnectKoinModules {
         single<RepositoryLocal> {
             RepositoryImplementationLocal(RoomDataBaseImplementation(get()))
         }
-         single <OnlineRepository> { OnlineRepository() }
+        single { OnlineRepository() }
 
     }
 
 
-
     val mainScreen = module {
         scope(named<MainFragment>()) {
-            viewModel { MainViewModel(FilmsRetrofitRepository(Dispatchers.IO)) }
+            viewModel { MainViewModel(MessagessRetrofitRepository(Dispatchers.IO)) }
         }
     }
 

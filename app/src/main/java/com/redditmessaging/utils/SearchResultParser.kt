@@ -7,24 +7,28 @@ import com.redditmessaging.model.room.message.MessageEntity
 
 fun converterDataXToMessageEntity(listData: List<DataX>) =
 
-    listData.map{
+    listData.map {
         MessageEntity(
             id = listData.indexOf(it),
             title = it.title,
-            upvoteRatio= it.upvoteRatio,
-            numCrossposts =it.numCrossposts)
-    }
-fun converterMessageEntityToDataX(listMessageEntity: List<MessageEntity>) =
-    listMessageEntity.map{
-        DataX(title = it.title,
-            upvoteRatio= it.upvoteRatio,
-            numCrossposts =it.numCrossposts)
+            upvoteRatio = it.upvoteRatio,
+            numCrossposts = it.numCrossposts
+        )
     }
 
-fun convertListChildrenToListDataX(listChildren: List<Children>): List<DataX>{
+fun converterMessageEntityToDataX(listMessageEntity: List<MessageEntity>) =
+    listMessageEntity.map {
+        DataX(
+            title = it.title,
+            upvoteRatio = it.upvoteRatio,
+            numCrossposts = it.numCrossposts
+        )
+    }
+
+fun convertListChildrenToListDataX(listChildren: List<Children>): List<DataX> {
     listChildren.toMutableList()
     var output = mutableListOf<DataX>()
-    listChildren.forEach{
+    listChildren.forEach {
         it.data?.let { it1 -> output.add(it1) }
     }
     return output

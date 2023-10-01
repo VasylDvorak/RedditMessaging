@@ -6,8 +6,8 @@ import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.google.gson.Gson
-import com.redditmessaging.databinding.FilmCardItemBinding
-import com.redditmessaging.databinding.ItemFilmBinding
+import com.redditmessaging.databinding.ItemMessageBinding
+import com.redditmessaging.databinding.MessageCardItemBinding
 import com.redditmessaging.model.request.DataX
 
 
@@ -29,7 +29,7 @@ class MessageAdapter : PagingDataAdapter<DataX, MessageAdapter.Holder>(
         }
     }
 
-    private fun fillWithViewCard(filmCardItemBinding: FilmCardItemBinding, data: DataX) {
+    private fun fillWithViewCard(filmCardItemBinding: MessageCardItemBinding, data: DataX) {
         filmCardItemBinding.apply {
             title.text=data.title
             rating.text = data.upvoteRatio?.toInt().toString()
@@ -38,13 +38,13 @@ class MessageAdapter : PagingDataAdapter<DataX, MessageAdapter.Holder>(
     }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
         val inflater = LayoutInflater.from(parent.context)
-        val binding = ItemFilmBinding.inflate(inflater, parent, false)
+        val binding = ItemMessageBinding.inflate(inflater, parent, false)
         return Holder(binding)
     }
 
 
     class Holder(
-        val binding: ItemFilmBinding
+        val binding: ItemMessageBinding
     ) : RecyclerView.ViewHolder(binding.root)
 
 }

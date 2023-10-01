@@ -33,51 +33,49 @@ class MainFragment : BaseFragment<AppState, FragmentMainBinding>(FragmentMainBin
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        setupFilmsList()
-        model.setSearchBy("")
-        setupSwipeToRefresh()
+        setupMessagesList()
     }
 
-    private fun setupFilmsList() {
+    private fun setupMessagesList() {
 
         // in case of loading errors this callback is called when you tap the 'Try Again' button
-        val tryAgainAction: TryAgainAction = { adapter.retry() }
 
-        val footerAdapter = DefaultLoadStateAdapter(tryAgainAction)
+        val footerAdapter = DefaultLoadStateAdapter()
 
         // combined adapter which shows both the list of users + footer indicator when loading pages
 
         val adapterWithLoadState = adapter
             .withLoadStateFooter(footer = footerAdapter)
         binding.apply {
-            filmsRecyclerView.apply {
+            messagesRecyclerView.apply {
                 layoutManager = LinearLayoutManager(requireContext())
-                filmsRecyclerView.adapter = adapterWithLoadState
+                adapter = adapterWithLoadState
                 (itemAnimator as? DefaultItemAnimator)?.supportsChangeAnimations = true
             }
             mainLoadStateHolder = DefaultLoadStateAdapter.Holder(
                 loadStateView,
-                swipeRefreshLayout,
-                tryAgainAction
+                swipeRefreshLayout
             )
         }
-        observeFilms()
+        observeMessages()
         observeLoadState()
         handleScrollingToTopWhenSearching()
         handleListVisibility()
     }
 
-    private fun observeFilms() {
+    private fun observeMessages() {
         val viewModel: MainViewModel by lazy { mainScreenScope.get() }
         model = viewModel
+        startViewModelFlow()
+    }
+
+    private fun startViewModelFlow(){
         lifecycleScope.launch {
-            model.usersFlow.collectLatest { pagingData ->
+            model.messagesFlow.collectLatest { pagingData ->
                 adapter.submitData(pagingData)
             }
         }
     }
-
     private fun observeLoadState() {
         // you can also use adapter.addLoadStateListener
         lifecycleScope.launch {
@@ -95,7 +93,7 @@ class MainFragment : BaseFragment<AppState, FragmentMainBinding>(FragmentMainBin
             .simpleScan(count = 2)
             .collectLatest { (previousState, currentState) ->
                 if (previousState is LoadState.Loading && currentState is LoadState.NotLoading) {
-                    binding.filmsRecyclerView.scrollToPosition(0)
+                    binding.messagesRecyclerView.scrollToPosition(0)
                 }
             }
     }
@@ -108,7 +106,7 @@ class MainFragment : BaseFragment<AppState, FragmentMainBinding>(FragmentMainBin
         getRefreshLoadStateFlow()
             .simpleScan(count = 3)
             .collectLatest { (beforePrevious, previous, current) ->
-                binding.filmsRecyclerView.isInvisible = current is LoadState.Error
+                binding.messagesRecyclerView.isInvisible = current is LoadState.Error
                         || previous is LoadState.Error
                         || (beforePrevious is LoadState.Error && previous is LoadState.NotLoading
                         && current is LoadState.Loading)
@@ -117,21 +115,6 @@ class MainFragment : BaseFragment<AppState, FragmentMainBinding>(FragmentMainBin
 
     private fun getRefreshLoadStateFlow(): Flow<LoadState> {
         return adapter.loadStateFlow.map { it.refresh }
-    }
-
-
-
-    private fun setupSwipeToRefresh() {
-        binding.swipeRefreshLayout.setOnRefreshListener {
-            model.refresh()
-        }
-    }
-
-
-
-    companion object {
-        fun newInstance() = MainFragment()
-
     }
 }
 

@@ -1,9 +1,9 @@
 package com.redditmessaging.di.koin_modules
 
+import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import com.redditmessaging.BuildConfig
 import com.redditmessaging.model.datasource.ApiService
 import com.redditmessaging.model.datasource.BaseInterceptor
-import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -31,8 +31,10 @@ class ApiModule {
     fun createOkHttpClient(interceptor: Interceptor): OkHttpClient {
         val httpClient = OkHttpClient.Builder()
         httpClient.addInterceptor(interceptor)
-        httpClient.addInterceptor(HttpLoggingInterceptor()
-            .setLevel(HttpLoggingInterceptor.Level.BODY))
+        httpClient.addInterceptor(
+            HttpLoggingInterceptor()
+                .setLevel(HttpLoggingInterceptor.Level.BODY)
+        )
         return httpClient.build()
     }
 

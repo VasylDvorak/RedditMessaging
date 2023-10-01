@@ -5,15 +5,15 @@ import com.redditmessaging.model.request.DataX
 
 
 class RepositoryImplementationLocal(private val dataSource: RepositoryDataSourceLocal) :
-    RepositoryLocal{
+    RepositoryLocal {
 
 
-    override suspend fun getFavoriteList(): List<DataX> {
-        return dataSource.getFavoriteList()
+    override suspend fun getMessagesList(): List<DataX> {
+        return dataSource.getMessagesList()
     }
 
-    override suspend fun putFavoriteList(listData: List<DataX> ) {
-        dataSource.putFavorite(listData)
+    override suspend fun putMessagesList(listData: List<DataX>) {
+        dataSource.putMessagesList(listData)
     }
 
 }
