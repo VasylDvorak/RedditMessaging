@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">RedditMessaging</string>
+    <string name="action_settings">Settings</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+    <string name="no_connection_internet">Нет соединения с интернетом</string>
+    <string name="dialog_title_stub">Неопределённая ошибка</string>
+    <string name="dialog_button_cancel">OK</string>
+    <string name="dialog_message_device_is_offline">Вы не можете использовать кинотеатр
+        без интернет соединения</string>
+    <string name="dialog_title_device_is_offline">Нет интернет соединения</string>
+    <string name="load_error">Oops, can\'t load data</string>
+    <string name="try_again">Try Again</string>
+    <string name="empty_data">Нету данных</string>
+</resources>
